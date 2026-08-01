@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Admin kirish";
+}
+
+<div class="container py-5" style="max-width: 400px;">
+    <h2 class="text-center mb-4">Admin kirish</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post" action="/Admin/Login">
+        <div class="mb-3">
+            <label class="form-label">Parol</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-warning w-100">Kirish</button>
+    </form>
+</div>

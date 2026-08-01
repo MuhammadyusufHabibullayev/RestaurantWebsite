@@ -1,0 +1,50 @@
+﻿@model List<RestaurantWebsite.Models.ContactMessage>
+
+@{
+    ViewData["Title"] = "Xabarlar";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4">Kelgan xabarlar</h2>
+
+    <a href="/Admin" class="btn btn-secondary mb-3">← Admin panelga qaytish</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ism</th>
+                <th>Telefon</th>
+                <th>Xabar</th>
+                <th>Sana</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var msg in Model)
+            {
+                <tr>
+                    <td>@msg.Name</td>
+                    <td>@msg.Phone</td>
+                    <td>@msg.Message</td>
+                    <td>@msg.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        @if (!msg.IsRead)
+                        {
+                            <a href="/Admin/MarkAsRead/@msg.Id" class="btn btn-sm btn-success">O'qildi deb belgilash</a>
+                        }
+                        <a href="/Admin/DeleteMessage/@msg.Id" class="btn btn-sm btn-danger">O'chirish</a>
+                        @if (msg.ChatId.HasValue)
+                        {
+                            <br />
+                            <form method="post" acation="/Admin/Reply" style="margin-top:5px;">
+                                <input type="hidden" name="id" value="@msg.Id" />
+                                <input type="text" name="responseText" placeholder="Javobingiz..." style="width:150px;" required />
+                                <button type="submit" class="btn btn-sm btn-primary">Yuborish</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

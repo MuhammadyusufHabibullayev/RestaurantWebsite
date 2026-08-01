@@ -1,0 +1,56 @@
+﻿@model List<RestaurantWebsite.Models.TableReservation>
+
+@{
+    ViewData["Title"] = "Bronlar";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4">Stol bronlari</h2>
+
+    <a href="/Admin" class="btn btn-secondary mb-3">← Admin panelga qaytish</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ism</th>
+                <th>Telefon</th>
+                <th>Sana</th>
+                <th>Soat</th>
+                <th>Odamlar soni</th>
+                <th>Holati</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.Phone</td>
+                    <td>@r.ReservationDate.ToString("dd.MM.yyyy")</td>
+                    <td>@r.Time</td>
+                    <td>@r.GuestCount</td>
+                    <td>
+                        @if (r.IsConfirmed)
+                        {
+                            <span class="badge bg-success">Tasdiqlangan</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning">Kutilmoqda</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!r.IsConfirmed)
+                        {
+                            <form method="post" action="/Admin/ConfirmReservation">
+                                <input type="hidden" name="id" value="@r.Id" />
+                                <button type="submit" class="btn btn-sm btn-success">Tasdiqlash</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

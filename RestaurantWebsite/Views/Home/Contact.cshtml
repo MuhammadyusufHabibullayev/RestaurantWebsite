@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Aloqa";
+}
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">Biz bilan bog'laning</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Manzil</h5>
+            <p class="text-muted">Toshkent shahri, Chilonzor tumani, 33-uy</p>
+
+            <h5>Telefon</h5>
+            <p class="text-muted">+998 90 123 45 67</p>
+
+            <h5>Ish vaqti</h5>
+            <p class="text-muted">Har kuni 09:00 - 23:00</p>
+        </div>
+
+        <div class="col-md-6">
+            <h5>Xabar yuborish</h5>
+
+            @if (ViewBag.Success == true)
+            {
+                <div class="alert alert-success">Xabaringiz yuborildi! Raxmat.</div>
+            }
+
+            <form method="post" action="/Home/Contact">
+                <div class="mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="Ismingiz" required>
+                </div>
+                <div class="mb-3">
+                    <input type="tel" id="Phone" name="Phone" 
+                       pattern="\+998[0-9]{9}" 
+                       maxlength="13"
+                       placeholder="+998901234567" />
+
+                <script>
+                    const phoneInput = document.getElementById('Phone');
+    
+                    phoneInput.addEventListener('focus', function () {
+                        if (this.value === '') this.value = '+998';
+                    });
+
+                    phoneInput.addEventListener('input', function () {
+                        if (!this.value.startsWith('+998')) {
+                            this.value = '+998';
+                        }
+                    });
+                </script>
+                </div>
+                <div class="mb-3">
+                    <textarea name="message" class="form-control" rows="4" placeholder="Xabaringiz" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning">Yuborish</button>
+            </form>
+            

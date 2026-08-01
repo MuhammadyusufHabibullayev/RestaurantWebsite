@@ -1,0 +1,5 @@
+appsettings.json
+*.db
+bin/
+obj/
+.vs/

@@ -1,0 +1,30 @@
+﻿@model RestaurantWebsite.Models.MenuItem
+
+@{
+    ViewData["Title"] = "Taomni tahrirlash";
+}
+
+<div class="container py-5" style="max-width: 500px;">
+    <h2 class="mb-4">Taomni tahrirlash</h2>
+
+    <form method="post" action="/Admin/Edit/@Model.Id">
+        <div class="mb-3">
+            <label class="form-label">Nomi</label>
+            <input type="text" name="name" class="form-control" value="@Model.Name" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tavsif</label>
+            <input type="text" name="description" class="form-control" value="@Model.Description" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Narxi (so'm)</label>
+            <input type="number" name="price" class="form-control" value="@Model.Price" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Rasm manzili (URL)</label>
+            <input type="text" name="imageUrl" class="form-control" value="@Model.ImageUrl">
+        </div>
+        <button type="submit" class="btn btn-warning">Saqlash</button>
+        <a href="/Admin" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>

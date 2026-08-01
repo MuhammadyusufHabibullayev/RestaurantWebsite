@@ -1,0 +1,28 @@
+﻿@model List<RestaurantWebsite.Models.MenuItem>
+
+@{
+    ViewData["Title"] = "Menyu";
+}
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">Bizning Menyu</h1>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" class="card-img-top" style="height:200px;object-fit:cover;"/>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text text-muted">@item.Description</p>
+                        <p class="fw-bold text-warning">@item.Price.ToString("N0") so'm</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model List<RestaurantWebsite.Models.MenuItem>
+
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">Admin Panel - Taomlarni boshqarish</h1>
+    <a href="/Admin/Messages" class="btn btn-info mb-3">Kelgan xabarlarni ko'rish</a>
+    <a href="/Admin/Reservations" class="btn btn-success mb-3">Stol bronlarini ko'rish</a>
+
+    <div class="card mb-5">
+        <div class="card-body">
+            <h5 class="card-title">Yangi taom qo'shish</h5>
+            <form method="post" action="/Admin/Add">
+                <div class="mb-3">
+                    <label class="form-label">Nomi</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tavsif</label>
+                    <input type="text" name="description" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Narxi (so'm)</label>
+                    <input type="number" name="price" class="form-control" required>
+                </div>
+
+                <diw class="mb-3">
+                    <label class="form-label">Rasm manzili(URL)</label>
+                    <input type="text" name="imageUrl" class="form-control"placeholder="https://..." />
+                </diw>
+                <button type="submit" class="btn btn-warning">Qo'shish</button>
+            </form>
+        </div>
+    </div>
+
+    <h3>Mavjud taomlar</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Rasm</th>
+                <th>Nomi</th>
+                <th>Tavsif</th>
+                <th>Narxi</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" style="width:60px;height:60px;object-fit:cover;border-radius:5px;" />
+                        }
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price.ToString("N0") so'm</td>
+                    <td>
+                        <a href="/Admin/Edit/@item.Id" class="btn btn-sm btn-primary">Tahrirlash</a>
+                        <a href="/Admin/Delete/@item.Id" class="btn btn-sm btn-danger">O'chirish</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
