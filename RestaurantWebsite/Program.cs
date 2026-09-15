@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
       options.UseSqlite("Data Source=restaurant.db"));
 builder.Services.AddSession();
-builder.Services.AddHostedService<RestaurantWebsite.Services.TelegramBotService>();
+//builder.Services.AddHostedService<RestaurantWebsite.Services.TelegramBotService>();
 
 
 var app = builder.Build();
@@ -16,7 +16,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    if (!db.MenuItems.Any())
+    db.Database.Migrate();
     {
         db.MenuItems.AddRange(
             new MenuItem { Name = "Osh", Description = "An'anaviy o'zbek oshi, go'sht va sabzi bilan", Price = 35000 },
@@ -41,12 +41,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();
